@@ -9,6 +9,8 @@ import {
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,7 +38,9 @@ export default function RootLayout({
       <html lang="en">
         <body className="min-h-screen h-screen overflow-hidden flex flex-col">
           <Toaster />
+          <Header />
           {children}
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

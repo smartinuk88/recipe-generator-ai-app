@@ -8,6 +8,7 @@ import {
 } from "@clerk/nextjs";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,13 +34,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+        <body className="min-h-screen h-screen overflow-hidden flex flex-col">
+          <Toaster />
           {children}
         </body>
       </html>

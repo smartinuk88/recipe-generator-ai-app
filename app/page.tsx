@@ -54,7 +54,7 @@ export default function Home() {
     <>
       <Header />
       <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
-        <div className="">
+        <div>
           <RecipeGenerator />
         </div>
       </main>

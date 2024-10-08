@@ -34,13 +34,19 @@ function BurgerMenu({
       <nav className="flex items-center justify-center flex-1">
         <ul className="flex flex-col items-center justify-center space-y-8 text-2xl">
           <li className="hover:underline underline-offset-2">
-            <Link href="/">Create</Link>
+            <Link href="/" onClick={onToggleMenu}>
+              Create
+            </Link>
           </li>
           <li className="hover:underline underline-offset-2">
-            <Link href="/">Explore</Link>
+            <Link href="/" onClick={onToggleMenu}>
+              Explore
+            </Link>
           </li>
           <li className="hover:underline underline-offset-2 text-mango-600">
-            <Link href="/">Premium</Link>
+            <Link href="/" onClick={onToggleMenu}>
+              Premium
+            </Link>
           </li>
         </ul>
       </nav>

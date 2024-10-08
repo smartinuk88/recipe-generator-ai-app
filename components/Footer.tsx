@@ -11,7 +11,7 @@ function Footer() {
         </Link>
       </div>
       <div className="flex justify-center">
-        <nav className="flex space-x-8">
+        <nav className="flex space-x-8 text-sm">
           <ul className="flex space-x-8">
             <li className="hover:underline underline-offset-2">
               <Link href="/">Terms</Link>

@@ -4,9 +4,11 @@ function Footer() {
   return (
     <div className="flex p-5 items-center justify-between">
       <div>
-        <span className="text-lg font-semibold">
-          Recipe<span>Gen</span>
-        </span>
+        <Link href="/">
+          <span className="text-lg font-semibold">
+            Recipe<span>Gen</span>
+          </span>
+        </Link>
       </div>
       <div className="flex justify-center">
         <nav className="flex space-x-8">

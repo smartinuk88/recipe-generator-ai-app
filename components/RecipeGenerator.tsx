@@ -1,6 +1,4 @@
 function RecipeGenerator() {
-  return (
-    <div>RecipeGenerator</div>
-  )
+  return <div className="p-5 bg-bluegreen-500">RecipeGenerator</div>;
 }
-export default RecipeGenerator
+export default RecipeGenerator;

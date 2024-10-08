@@ -1,5 +1,4 @@
 import RecipeGenerator from "@/components/RecipeGenerator";
-import { Button } from "@/components/ui/button";
 import {
   BrainCogIcon,
   EyeIcon,
@@ -8,8 +7,6 @@ import {
   ServerCogIcon,
   ZapIcon,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 const features = [
   {
@@ -53,8 +50,8 @@ const features = [
 
 export default function Home() {
   return (
-    <main className="flex-1 overflow-scroll p-5">
-      <div className="max-w-7xl mx-auto">
+    <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
+      <div className="">
         <RecipeGenerator />
       </div>
     </main>

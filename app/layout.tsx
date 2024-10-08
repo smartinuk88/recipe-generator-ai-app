@@ -38,7 +38,6 @@ export default function RootLayout({
       <html lang="en">
         <body className="min-h-screen h-screen overflow-hidden flex flex-col">
           <Toaster />
-          <Header />
           {children}
           <Footer />
         </body>

@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import RecipeGenerator from "@/components/RecipeGenerator";
 import {
   BrainCogIcon,
@@ -50,10 +51,13 @@ const features = [
 
 export default function Home() {
   return (
-    <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
-      <div className="">
-        <RecipeGenerator />
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
+        <div className="">
+          <RecipeGenerator />
+        </div>
+      </main>
+    </>
   );
 }

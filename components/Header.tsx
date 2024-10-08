@@ -14,13 +14,13 @@ function Header() {
       <div>
         <nav>
           <ul className="flex space-x-8 text-lg">
-            <li className="hover:underline underline-offset-3">
+            <li className="hover:underline underline-offset-2">
               <Link href="/">Create</Link>
             </li>
-            <li className="hover:underline underline-offset-3">
+            <li className="hover:underline underline-offset-2">
               <Link href="/">Explore</Link>
             </li>
-            <li className="hover:underline underline-offset-3">
+            <li className="hover:underline underline-offset-2 text-mango-600">
               <Link href="/">Premium</Link>
             </li>
           </ul>

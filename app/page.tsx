@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Recipe from "@/components/Recipe";
 import RecipeGenerator from "@/components/RecipeGenerator";
 import {
   Refrigerator,
@@ -55,6 +56,10 @@ export default function Home() {
       <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
         <section>
           <RecipeGenerator />
+        </section>
+
+        <section>
+          <Recipe />
         </section>
 
         {/* Features */}

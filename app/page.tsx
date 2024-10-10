@@ -1,51 +1,50 @@
 import Header from "@/components/Header";
 import RecipeGenerator from "@/components/RecipeGenerator";
 import {
-  BrainCogIcon,
-  EyeIcon,
-  GlobeIcon,
-  MonitorSmartphoneIcon,
-  ServerCogIcon,
-  ZapIcon,
+  Refrigerator,
+  Clock,
+  Brain,
+  Lightbulb,
+  ListChecks,
+  Star,
 } from "lucide-react";
 
 const features = [
   {
-    name: "Store your PDF Documents",
+    icon: Refrigerator,
+    title: "Reduce Waste",
     description:
-      "Keep all your important PDF files securely stored and easily accessible anytime, anywhere.",
-    icon: GlobeIcon,
+      "Use the ingredients in your fridge to create delicious meals and reduce food waste.",
   },
   {
-    name: "Blazing Fast Responses",
+    icon: Clock,
+    title: "Save Time",
     description:
-      "Experience lightning-fast answers to your queries, ensuring you get the information you need instantly.",
-    icon: ZapIcon,
+      "Generate quick and easy recipes tailored to your schedule, so you spend less time deciding what to cook.",
   },
   {
-    name: "Chat Memorisation",
+    icon: Brain,
+    title: "Save Mental Load",
     description:
-      "Our intelligent chatbot remembers previous interactions, providing a seamless and personalized experience.",
-    icon: BrainCogIcon,
+      "No more stressing about meal ideas. Let the app suggest recipes so you can focus on other things.",
   },
   {
-    name: "Interactive PDF Viewer",
+    icon: Lightbulb,
+    title: "Increase Creativity",
     description:
-      "Engage with your PDFs like never before using our intuitive and interactive viewer.",
-    icon: EyeIcon,
+      "Break out of the routine and try new recipes with the ingredients you already have on hand.",
   },
   {
-    name: "Cloud Backup",
+    icon: ListChecks,
+    title: "Personalized Recipes",
     description:
-      "Rest assured knowing your documents are safely backed up on the cloud, protected from loss or damage.",
-    icon: ServerCogIcon,
+      "Get recipes tailored to your dietary preferences and the number of people you're cooking for.",
   },
   {
-    name: "Responsive Across Devices",
+    icon: Star,
+    title: "Favorites & Reviews",
     description:
-      "Access and chat with your PDFs seamlessly on any device, whether it's your desktop, tablet, or smartphone.",
-
-    icon: MonitorSmartphoneIcon,
+      "Save your favorite recipes and leave reviews to help others find their next meal inspiration.",
   },
 ];
 
@@ -54,9 +53,28 @@ export default function Home() {
     <>
       <Header />
       <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
-        <div>
+        <section>
           <RecipeGenerator />
-        </div>
+        </section>
+
+        {/* Features */}
+        <section className="mx-auto mt-16 mb-16 max-w-7xl px-5 sm:mt-20 md:mt-24">
+          <dl className="mx-auto grid max-w-3xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+            {features.map((feature) => (
+              <div key={feature.title} className="relative pl-12">
+                <dt className="inline font-semibold text-bluegreen-500">
+                  <feature.icon
+                    aria-hidden="true"
+                    className="absolute left-1 top-1 h-8 w-8"
+                  />
+                  <span className="text-lg text-gray-900">{feature.title}</span>
+                </dt>
+
+                <dd>{feature.description}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       </main>
     </>
   );

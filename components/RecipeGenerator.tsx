@@ -18,9 +18,7 @@ function RecipeGenerator() {
   return (
     <div className="flex flex-col items-center justify-center p-5 md:p-10 bg-bluegreen-500 max-w-7xl mx-auto 2xl:rounded-md min-h-96 text-white text-center">
       <h2 className="text-5xl font-bold mb-2">Need a quick recipe?</h2>
-      <p className="mb-12">
-        Just enter a quick idea and we will do the rest for you!
-      </p>
+      <p className="mb-12">Just enter a quick idea and we will do the rest!</p>
       <form onSubmit={handleSubmit} className="w-full">
         <div className="mb-4">
           <label htmlFor="recipe-input" className="sr-only">
@@ -30,7 +28,7 @@ function RecipeGenerator() {
             id="recipe-input"
             onChange={(e) => setInput(e.target.value)}
             value={input}
-            className="bg-white text-black h-12"
+            className="bg-white text-black text-center h-12 text-lg font-semibold placeholder:text-base placeholder:font-light"
             placeholder="Vegan snacks for a 5 year old's birthday party..."
             aria-label="Enter your recipe idea"
             required

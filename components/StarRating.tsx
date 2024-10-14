@@ -7,7 +7,7 @@ function StarRating({ rating }: { rating: number }) {
         return (
           <span>
             <Star
-              className={`text-mango-600 ${
+              className={`text-bluegreen-500 ${
                 rating >= star ? "fill-current" : "stroke-current"
               }`}
             />

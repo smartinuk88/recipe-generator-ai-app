@@ -16,7 +16,7 @@ function RecipeGenerator() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-5 md:p-10 bg-bluegreen-500 max-w-7xl mx-auto 2xl:rounded-md min-h-96 text-white text-center">
+    <div className="flex flex-col items-center justify-center p-5 md:p-10 bg-bluegreen-500 max-w-7xl mx-auto 2xl:rounded-xl min-h-96 text-white text-center">
       <h2 className="text-5xl font-bold mb-2">Need a quick recipe?</h2>
       <p className="mb-12">Just enter a quick idea and we will do the rest!</p>
       <form onSubmit={handleSubmit} className="w-full">
@@ -28,13 +28,13 @@ function RecipeGenerator() {
             id="recipe-input"
             onChange={(e) => setInput(e.target.value)}
             value={input}
-            className="bg-white text-black text-center h-12 text-lg font-semibold placeholder:text-base placeholder:font-light"
+            className="bg-white text-black text-center h-12 text-lg rounded-xl font-semibold placeholder:text-base placeholder:font-light"
             placeholder="Vegan snacks for a 5 year old's birthday party..."
             aria-label="Enter your recipe idea"
             required
           />
         </div>
-        <Button className="bg-mango-600 hover:bg-mango-700 w-full text-lg font-bold">
+        <Button className="bg-mango-600 hover:bg-mango-700 w-full rounded-xl text-lg font-bold">
           Generate Recipe
         </Button>
       </form>

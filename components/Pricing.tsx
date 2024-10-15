@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Button } from "./ui/button";
 import { CheckIcon } from "lucide-react";
+import useSubscription from "@/hooks/useSubscription";
 
 export type UserDetails = {
   email: string;
@@ -15,6 +16,7 @@ function Pricing() {
   const { user } = useUser();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { hasActiveMembership, loading } = useSubscription();
 
   return (
     <div className="max-w-md mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 md:max-w-2xl gap-8 lg:max-w-4xl">

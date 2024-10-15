@@ -1,6 +1,6 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,12 +10,13 @@ const firebaseConfig = {
   storageBucket: "instadish-2a9fc.appspot.com",
   messagingSenderId: "7152282865",
   appId: "1:7152282865:web:acc0d53123415646ea4d50",
+  measurementId: "G-RL1V9CQCZ9",
 };
 
 // Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 const db = getFirestore(app);
-const storage = getStorage(app);
+const analytics = getAnalytics(app);
 
-export { db, storage };
+export { db, analytics };

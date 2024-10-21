@@ -8,6 +8,7 @@ import { CheckIcon } from "lucide-react";
 import useSubscription from "@/hooks/useSubscription";
 import getStripe from "@/lib/stripe-js";
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
+import { createStripePortal } from "@/actions/createStripePortal";
 
 export type UserDetails = {
   email: string;
@@ -31,11 +32,11 @@ function Pricing() {
     startTransition(async () => {
       const stripe = await getStripe();
 
-      // if (hasActiveMembership) {
-      //   // create stripe portal...
-      //   const stripePortalUrl = await createStripePortal();
-      //   return router.push(stripePortalUrl);
-      // }
+      if (hasActiveMembership) {
+        // create stripe portal...
+        const stripePortalUrl = await createStripePortal();
+        return router.push(stripePortalUrl);
+      }
 
       const sessionId = await createCheckoutSession(userDetails);
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import BurgerMenu from "./BurgerMenu";
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import UpgradeButton from "./UpgradeButton";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,15 +27,15 @@ function Header() {
       </div>
       <div className="hidden md:block">
         <nav>
-          <ul className="flex space-x-8 text-lg">
+          <ul className="flex space-x-8 items-center text-lg">
             <li className="hover:underline underline-offset-2">
               <Link href="/dashboard">Create</Link>
             </li>
             <li className="hover:underline underline-offset-2">
               <Link href="/dashboard/explore">Explore</Link>
             </li>
-            <li className="hover:underline underline-offset-2 text-mango-600">
-              <Link href="/dashboard/upgrade">Premium</Link>
+            <li>
+              <UpgradeButton />
             </li>
           </ul>
         </nav>

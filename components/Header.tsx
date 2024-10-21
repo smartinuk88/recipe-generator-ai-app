@@ -43,7 +43,7 @@ function Header() {
 
       <div className="hidden md:block">
         <SignedIn>
-          <UserButton showName />
+          <UserButton />
         </SignedIn>
 
         <SignedOut>

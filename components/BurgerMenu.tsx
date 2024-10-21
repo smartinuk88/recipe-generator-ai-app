@@ -1,6 +1,7 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { X } from "lucide-react";
 import Link from "next/link";
+import UpgradeButton from "./UpgradeButton";
 
 function BurgerMenu({
   onToggleMenu,
@@ -44,9 +45,7 @@ function BurgerMenu({
             </Link>
           </li>
           <li className="hover:underline underline-offset-2 text-mango-600">
-            <Link href="/" onClick={onToggleMenu}>
-              Premium
-            </Link>
+            <UpgradeButton onToggleMenu={onToggleMenu} />
           </li>
         </ul>
       </nav>

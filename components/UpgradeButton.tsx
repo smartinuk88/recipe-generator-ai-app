@@ -30,9 +30,11 @@ function UpgradeButton({ onToggleMenu }: { onToggleMenu?: () => void }) {
       <Button
         asChild
         variant="default"
-        className="border-mango-600 hover:bg-mango-700"
+        className="border-mango-600 bg-mango-600 hover:bg-mango-700"
       >
-        <Link href="/dashboard/upgrade">Upgrade</Link>
+        <Link href="/dashboard/upgrade">
+          <span className="font-bold">Upgrade</span>
+        </Link>
       </Button>
     );
 

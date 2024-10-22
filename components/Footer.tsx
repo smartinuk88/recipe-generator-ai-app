@@ -11,8 +11,8 @@ function Footer() {
         </Link>
       </div>
       <div className="flex justify-center">
-        <nav className="flex space-x-8 text-sm">
-          <ul className="flex space-x-8">
+        <nav className="text-sm">
+          <ul className="flex space-x-4 md:space-x-8">
             <li className="hover:underline underline-offset-2">
               <Link href="/">Terms</Link>
             </li>
@@ -26,7 +26,7 @@ function Footer() {
         </nav>
       </div>
       <div>
-        <p className="text-xs">Copyright &copy; Recipe Generator 2024</p>
+        <p className="text-xs">&copy; InstaDish 2024</p>
       </div>
     </div>
   );

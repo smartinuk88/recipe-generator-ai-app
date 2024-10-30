@@ -182,7 +182,7 @@ const features = [
 ];
 
 export default function Home() {
-  const [recipe, setRecipe] = useState<RecipeType | null>(dummyRecipe);
+  const [recipe, setRecipe] = useState<RecipeType | null>(null);
 
   return (
     <>

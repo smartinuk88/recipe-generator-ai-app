@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useTransition, useState } from "react";
+import { FormEvent, useTransition, useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { generateRecipe } from "@/actions/generateRecipe";
@@ -19,9 +19,19 @@ function RecipeGenerator({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  // Load saved prompt from localStorage on component mount
+  useEffect(() => {
+    const savedPrompt = localStorage.getItem("savedPrompt");
+    if (savedPrompt) {
+      setPrompt(savedPrompt);
+      localStorage.removeItem("savedPrompt"); // Clear after loading
+    }
+  }, []);
+
   const handleGenerateRecipe = (e: FormEvent) => {
     e.preventDefault();
     if (!user) {
+      localStorage.setItem("savedPrompt", prompt);
       router.push("/sign-in");
       return;
     }
@@ -56,11 +66,10 @@ function RecipeGenerator({
             className="bg-white text-black text-center h-12 text-lg rounded-xl font-semibold placeholder:text-base placeholder:font-light"
             placeholder="Generate a recipe for..."
             aria-label="Enter your recipe idea"
-            required
           />
         </div>
         <Button
-          disabled={!user || isPending}
+          disabled={isPending}
           className="bg-mango-600 hover:bg-mango-700 w-full rounded-xl text-lg font-bold"
         >
           {user

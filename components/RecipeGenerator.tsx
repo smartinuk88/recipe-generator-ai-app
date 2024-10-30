@@ -6,13 +6,16 @@ import { Input } from "./ui/input";
 import { generateRecipe } from "@/actions/generateRecipe";
 import { saveRecipeToFirestore } from "@/lib/saveRecipeToFirestore";
 import { useUser } from "@clerk/nextjs";
-import { Recipe } from "@/types/recipe";
 import { useRouter } from "next/navigation";
+import { Recipe } from "@/types/recipe";
 
-function RecipeGenerator() {
+function RecipeGenerator({
+  setRecipe,
+}: {
+  setRecipe: (recipe: Recipe) => void;
+}) {
   const { user } = useUser();
   const [prompt, setPrompt] = useState<string>("");
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -33,9 +36,8 @@ function RecipeGenerator() {
       const generatedRecipe = await generateRecipe(prompt);
       await saveRecipeToFirestore(generatedRecipe, prompt, userId);
       setRecipe(generatedRecipe);
+      console.log(generatedRecipe);
     });
-
-    console.log(recipe);
   };
 
   return (

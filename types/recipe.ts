@@ -8,9 +8,19 @@ export interface Recipe {
   title: string;
   summary: string;
   servings: number;
-  prepTime: string;
-  cookTime: string;
-  totalTime: string;
+  prepTime: {
+    time: number;
+    unit: string;
+  };
+  cookTime: {
+    time: number;
+    unit: string;
+  };
+  totalTime: {
+    time: number;
+    unit: string;
+  };
+  equipment: string[];
   ingredients: Ingredient[];
   instructions: {
     description: string;

@@ -35,17 +35,60 @@ export async function generateRecipe(prompt: string) {
               description: "The number of servings the recipe makes",
             },
             prepTime: {
-              type: "string",
-              description: "Preparation time in a human-readable format",
+              type: "object",
+              properties: {
+                time: {
+                  type: "integer",
+                  description: "The amount of preparation time",
+                },
+                unit: {
+                  type: "string",
+                  description:
+                    "Unit of time for preparation (e.g., minutes, hours)",
+                },
+              },
+              required: ["time", "unit"],
+              description: "Preparation time as separate time and unit fields",
             },
             cookTime: {
-              type: "string",
-              description: "Cooking time in a human-readable format",
+              type: "object",
+              properties: {
+                time: {
+                  type: "integer",
+                  description: "The amount of cooking time",
+                },
+                unit: {
+                  type: "string",
+                  description:
+                    "Unit of time for cooking (e.g., minutes, hours)",
+                },
+              },
+              required: ["time", "unit"],
+              description: "Cooking time as separate time and unit fields",
             },
             totalTime: {
-              type: "string",
-              description:
-                "Total time (preparation time + cooking time) in a human-readable format",
+              type: "object",
+              properties: {
+                time: {
+                  type: "integer",
+                  description: "The total amount of time (prep + cook)",
+                },
+                unit: {
+                  type: "string",
+                  description:
+                    "Unit of time for total time (e.g., minutes, hours)",
+                },
+              },
+              required: ["time", "unit"],
+              description: "Total time as separate time and unit fields",
+            },
+            equipment: {
+              type: "array",
+              items: {
+                type: "string",
+                description: "name of the piece of equipment",
+              },
+              description: "List of equipment used in the recipe",
             },
             ingredients: {
               type: "array",

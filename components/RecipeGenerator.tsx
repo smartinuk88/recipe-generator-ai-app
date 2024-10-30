@@ -8,6 +8,7 @@ import { saveRecipeToFirestore } from "@/lib/saveRecipeToFirestore";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Recipe } from "@/types/recipe";
+import { stringify } from "querystring";
 
 function RecipeGenerator({
   setRecipe,
@@ -22,9 +23,13 @@ function RecipeGenerator({
   // Load saved prompt from localStorage on component mount
   useEffect(() => {
     const savedPrompt = localStorage.getItem("savedPrompt");
+    const savedRecipe = localStorage.getItem("savedRecipe");
     if (savedPrompt) {
       setPrompt(savedPrompt);
       localStorage.removeItem("savedPrompt"); // Clear after loading
+    }
+    if (savedRecipe) {
+      setRecipe(JSON.parse(savedRecipe));
     }
   }, []);
 
@@ -46,7 +51,7 @@ function RecipeGenerator({
       const generatedRecipe = await generateRecipe(prompt);
       await saveRecipeToFirestore(generatedRecipe, prompt, userId);
       setRecipe(generatedRecipe);
-      console.log(generatedRecipe);
+      localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
     });
   };
 

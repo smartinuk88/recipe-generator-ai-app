@@ -64,6 +64,13 @@ function RecipeGenerator({
     return true;
   };
 
+  const setTemporaryError = (message: string, duration: number = 3000) => {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, duration);
+  };
+
   const handleGenerateRecipe = (e: FormEvent) => {
     e.preventDefault();
     if (!validatePrompt(prompt)) return;
@@ -81,24 +88,30 @@ function RecipeGenerator({
     }
 
     startTransition(async () => {
-      const generatedRecipe = await generateRecipe(prompt);
+      try {
+        const generatedRecipe = await generateRecipe(prompt);
 
-      if (generatedRecipe === false) {
-        // Prompt not food related. Set recipe to humorous recipe
-        const randomHumorousRecipe =
-          humorousRecipes[Math.floor(Math.random() * humorousRecipes.length)];
-        setRecipe(randomHumorousRecipe);
-      } else if (generatedRecipe === null) {
-        // Prompt harmful
-        setError("Harmful content is not accepted");
-        setTimeout(() => {
-          setError(null);
-        }, 3000);
-      } else {
-        // Genuine prompt
-        await saveRecipeToFirestore(generatedRecipe, prompt, userId);
-        setRecipe(generatedRecipe);
-        localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
+        if (generatedRecipe === false) {
+          // Prompt not food related: Set recipe to a random humorous recipe
+          const randomHumorousRecipe =
+            humorousRecipes[Math.floor(Math.random() * humorousRecipes.length)];
+          setRecipe(randomHumorousRecipe);
+          localStorage.setItem(
+            "savedRecipe",
+            JSON.stringify(randomHumorousRecipe)
+          );
+        } else if (generatedRecipe === null) {
+          // Prompt harmful: Set an error message
+          setTemporaryError("Harmful content is not accepted");
+        } else {
+          // Genuine prompt: Save the recipe and update state and local storage
+          await saveRecipeToFirestore(generatedRecipe, prompt, userId);
+          setRecipe(generatedRecipe);
+          localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
+        }
+      } catch {
+        console.error("Error generating recipe:", error);
+        setTemporaryError("An unexpected error occurred. Please try again.");
       }
     });
   };

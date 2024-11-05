@@ -4,47 +4,14 @@ import OpenAI from "openai";
 
 const openai = new OpenAI();
 
-const isHarmful = async (prompt: string) => {
-  const moderation = await openai.moderations.create({
-    model: "omni-moderation-latest",
-    input: prompt,
-  });
-
-  return moderation.results[0].flagged;
-};
-
-const isFoodRelated = async (prompt: string) => {
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      {
-        role: "system",
-        content: `Determine if the following text is related to food or cooking: "${prompt}". Respond with 'Y' or 'N'.`,
-      },
-    ],
-  });
-
-  return completion.choices[0].message.content?.toLowerCase() === "y";
-};
-
-export async function generateRecipe(prompt: string) {
-  const harmful = await isHarmful(prompt);
-  if (harmful) return null;
-
-  const isRelatedToFood = await isFoodRelated(prompt);
-  if (!isRelatedToFood) return false;
-
+export async function generateHumorousRecipe() {
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
       {
         role: "system",
         content:
-          "You generate delicious recipes based on user input in a structured JSON format.",
-      },
-      {
-        role: "user",
-        content: `Generate a recipe for ${prompt}`,
+          "You generate humorous and absurd recipes that make no sense but are funny, in a structured JSON format.",
       },
     ],
     response_format: {

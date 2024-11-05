@@ -60,9 +60,12 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
             Servings: <span className="text-gray-900">{recipe.servings}</span>
           </p>
         </div>
-        <p className="text-xs font-light">
-          Created by <span className="text-mango-600">{recipe.createdBy}</span>
-        </p>
+        {recipe.createdBy && (
+          <p className="text-xs font-light">
+            Created by{" "}
+            <span className="text-mango-600">{recipe.createdBy}</span>
+          </p>
+        )}
       </div>
 
       <div className="py-5 px-10 text-lg">

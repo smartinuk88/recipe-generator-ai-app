@@ -8,7 +8,8 @@ import { saveRecipeToFirestore } from "@/lib/saveRecipeToFirestore";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Recipe } from "@/types/recipe";
-import { stringify } from "querystring";
+import { useToast } from "@/hooks/use-toast";
+import { humorousRecipes } from "@/lib/humurousRecipes";
 
 function RecipeGenerator({
   setRecipe,
@@ -17,6 +18,8 @@ function RecipeGenerator({
 }) {
   const { user } = useUser();
   const [prompt, setPrompt] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -33,8 +36,38 @@ function RecipeGenerator({
     }
   }, []);
 
+  const validatePrompt = (prompt: string): boolean => {
+    // Check if the prompt is empty
+    if (!prompt.trim()) {
+      setError("Please enter a recipe request");
+
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return false;
+    }
+
+    // Check if the prompt has at least 3 words
+    if (prompt.trim().split(" ").length < 3) {
+      setError(
+        "Please provide more details (at least 3 words) for a meaningful recipe request."
+      );
+
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return false;
+    }
+
+    // Clear any previous errors if the prompt is valid
+    setError(null);
+    return true;
+  };
+
   const handleGenerateRecipe = (e: FormEvent) => {
     e.preventDefault();
+    if (!validatePrompt(prompt)) return;
+
     if (!user) {
       localStorage.setItem("savedPrompt", prompt);
       router.push("/sign-in");
@@ -49,9 +82,24 @@ function RecipeGenerator({
 
     startTransition(async () => {
       const generatedRecipe = await generateRecipe(prompt);
-      await saveRecipeToFirestore(generatedRecipe, prompt, userId);
-      setRecipe(generatedRecipe);
-      localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
+
+      if (generatedRecipe === false) {
+        // Prompt not food related. Set recipe to humorous recipe
+        const randomHumorousRecipe =
+          humorousRecipes[Math.floor(Math.random() * humorousRecipes.length)];
+        setRecipe(randomHumorousRecipe);
+      } else if (generatedRecipe === null) {
+        // Prompt harmful
+        setError("Harmful content is not accepted");
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      } else {
+        // Genuine prompt
+        await saveRecipeToFirestore(generatedRecipe, prompt, userId);
+        setRecipe(generatedRecipe);
+        localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
+      }
     });
   };
 
@@ -75,7 +123,7 @@ function RecipeGenerator({
         </div>
         <Button
           disabled={isPending}
-          className="bg-mango-600 hover:bg-mango-700 w-full rounded-xl text-lg font-bold"
+          className="bg-mango-600 hover:bg-mango-700 w-full rounded-xl text-lg font-bold mb-2"
         >
           {user
             ? isPending
@@ -84,6 +132,7 @@ function RecipeGenerator({
             : "Sign in to generate recipe"}
         </Button>
       </form>
+      <p className="h-5 text-mango-100">{error}</p>
     </div>
   );
 }

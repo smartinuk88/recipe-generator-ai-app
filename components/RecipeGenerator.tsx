@@ -50,7 +50,7 @@ function RecipeGenerator({
     // Check if the prompt has at least 3 words
     if (prompt.trim().split(" ").length < 3) {
       setError(
-        "Please provide more details (at least 3 words) for a meaningful recipe request."
+        "Please add more detail (at least 3 words). More detailed prompts provide a better response."
       );
 
       setTimeout(() => {
@@ -109,6 +109,7 @@ function RecipeGenerator({
           setRecipe(generatedRecipe);
           localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
         }
+        setPrompt("");
       } catch {
         console.error("Error generating recipe:", error);
         setTemporaryError("An unexpected error occurred. Please try again.");

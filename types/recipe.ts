@@ -10,6 +10,7 @@ export interface Recipe {
   title: string;
   summary: string;
   servings: number;
+  humorous?: boolean;
   prepTime: {
     time: number;
     unit: string;

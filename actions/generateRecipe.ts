@@ -1,6 +1,5 @@
 "use server";
 
-import { serverTimestamp } from "firebase/firestore";
 import OpenAI from "openai";
 
 const openai = new OpenAI();
@@ -28,7 +27,7 @@ const isFoodRelated = async (prompt: string) => {
   return completion.choices[0].message.content?.toLowerCase() === "y";
 };
 
-export async function generateRecipe(prompt: string, userId: string) {
+export async function generateRecipe(prompt: string, fullName: string) {
   const harmful = await isHarmful(prompt);
   if (harmful) return null;
 
@@ -203,8 +202,8 @@ export async function generateRecipe(prompt: string, userId: string) {
     const parsedRecipe = JSON.parse(recipe);
     const recipeWithMetaData = {
       ...parsedRecipe,
-      createdBy: userId,
-      createdAt: serverTimestamp(),
+      createdBy: fullName,
+      createdAt: new Date().toISOString(),
       prompt,
       public: false,
     };

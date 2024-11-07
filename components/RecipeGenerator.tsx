@@ -85,6 +85,7 @@ function RecipeGenerator({
     if (!validatePrompt(prompt)) return;
 
     const userId = user.id;
+    const fullName = user.fullName || "Anonymous";
 
     if (prompt.trim()) {
       console.log("Generating recipe for:", prompt);
@@ -92,7 +93,7 @@ function RecipeGenerator({
 
     startTransition(async () => {
       try {
-        const generatedRecipe = await generateRecipe(prompt, userId);
+        const generatedRecipe = await generateRecipe(prompt, fullName);
 
         if (generatedRecipe === false) {
           // Prompt not food related: Set recipe to a random humorous recipe
@@ -113,8 +114,8 @@ function RecipeGenerator({
           localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
         }
         setPrompt("");
-      } catch {
-        console.error("Error generating recipe:", error);
+      } catch (err) {
+        console.error("Error generating recipe:", err);
         setTemporaryError("An unexpected error occurred. Please try again.");
       }
     });

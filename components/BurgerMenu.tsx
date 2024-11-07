@@ -40,6 +40,9 @@ function BurgerMenu({
             </Link>
           </li>
           <li className="hover:underline underline-offset-2">
+            <Link href="/dashboard">My Recipes</Link>
+          </li>
+          <li className="hover:underline underline-offset-2">
             <Link href="/" onClick={onToggleMenu}>
               Explore
             </Link>

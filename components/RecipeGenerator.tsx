@@ -7,14 +7,14 @@ import { generateRecipe } from "@/actions/generateRecipe";
 import { saveRecipeToFirestore } from "@/lib/saveRecipeToFirestore";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Recipe } from "@/types/recipe";
+import { Recipe, RecipeWithMetaData } from "@/types/recipe";
 import { useToast } from "@/hooks/use-toast";
 import { humorousRecipes } from "@/lib/humurousRecipes";
 
 function RecipeGenerator({
   setRecipe,
 }: {
-  setRecipe: (recipe: Recipe) => void;
+  setRecipe: (recipe: RecipeWithMetaData | Recipe) => void;
 }) {
   const { user } = useUser();
   const [prompt, setPrompt] = useState<string>("");
@@ -73,13 +73,16 @@ function RecipeGenerator({
 
   const handleGenerateRecipe = (e: FormEvent) => {
     e.preventDefault();
-    if (!validatePrompt(prompt)) return;
 
     if (!user) {
-      localStorage.setItem("savedPrompt", prompt);
+      if (prompt) {
+        localStorage.setItem("savedPrompt", prompt);
+      }
       router.push("/sign-in");
       return;
     }
+
+    if (!validatePrompt(prompt)) return;
 
     const userId = user.id;
 
@@ -89,7 +92,7 @@ function RecipeGenerator({
 
     startTransition(async () => {
       try {
-        const generatedRecipe = await generateRecipe(prompt);
+        const generatedRecipe = await generateRecipe(prompt, userId);
 
         if (generatedRecipe === false) {
           // Prompt not food related: Set recipe to a random humorous recipe
@@ -105,7 +108,7 @@ function RecipeGenerator({
           setTemporaryError("Harmful content is not accepted");
         } else {
           // Genuine prompt: Save the recipe and update state and local storage
-          await saveRecipeToFirestore(generatedRecipe, prompt, userId);
+          await saveRecipeToFirestore(generatedRecipe, userId);
           setRecipe(generatedRecipe);
           localStorage.setItem("savedRecipe", JSON.stringify(generatedRecipe));
         }

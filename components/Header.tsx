@@ -32,6 +32,9 @@ function Header() {
               <Link href="/dashboard">Create</Link>
             </li>
             <li className="hover:underline underline-offset-2">
+              <Link href="/dashboard">My Recipes</Link>
+            </li>
+            <li className="hover:underline underline-offset-2">
               <Link href="/dashboard/explore">Explore</Link>
             </li>
             <li>

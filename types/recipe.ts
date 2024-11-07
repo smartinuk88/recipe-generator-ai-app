@@ -1,3 +1,5 @@
+import { serverTimestamp } from "firebase/firestore";
+
 export interface Ingredient {
   ingredient: string;
   quantity: string;
@@ -26,7 +28,11 @@ export interface Recipe {
     description: string;
     ingredientsUsed: Ingredient[];
   }[];
-  prompt?: string;
-  createdBy?: string;
-  public?: boolean;
+}
+
+export interface RecipeWithMetaData extends Recipe {
+  createdBy: string;
+  createdAt: typeof serverTimestamp;
+  prompt: string;
+  public: boolean;
 }

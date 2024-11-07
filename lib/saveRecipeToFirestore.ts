@@ -1,34 +1,14 @@
-import { Recipe } from "@/types/recipe";
+import { RecipeWithMetaData } from "@/types/recipe";
 import { db } from "@/firebase";
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-  serverTimestamp,
-  getDoc,
-} from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore";
 
 export const saveRecipeToFirestore = async (
-  recipe: Recipe,
-  prompt: string,
+  recipe: RecipeWithMetaData,
   userId: string
 ) => {
   try {
-    // Add the metadata
-    const recipeWithMetadata = {
-      ...recipe,
-      prompt,
-      createdBy: userId,
-      createdAt: serverTimestamp(),
-      public: false,
-    };
-
     // Add recipe to global recipes collection
-    const recipeRef = await addDoc(
-      collection(db, "recipes"),
-      recipeWithMetadata
-    );
+    const recipeRef = await addDoc(collection(db, "recipes"), recipe);
 
     // Update user's recipes array to reference new recipe
     const userRef = doc(db, "users", userId);

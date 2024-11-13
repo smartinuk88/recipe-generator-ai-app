@@ -14,134 +14,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-const dummyRecipe = {
-  title: "Vegan Roasted Sweet Potatoes with Garlic and Herbs",
-  summary:
-    "A savory and wholesome vegan recipe featuring roasted sweet potatoes seasoned with garlic, thyme, and rosemary—perfect as a side dish or a nutritious main course.",
-  servings: 4,
-  prepTime: {
-    time: 10,
-    unit: "minutes",
-  },
-  cookTime: {
-    time: 30,
-    unit: "minutes",
-  },
-  totalTime: {
-    time: 40,
-    unit: "minutes",
-  },
-  equipment: ["Oven", "Baking sheet", "Mixing bowl", "Spatula"],
-  ingredients: [
-    {
-      ingredient: "Sweet potatoes",
-      quantity: "4",
-      unit: "whole",
-    },
-    {
-      ingredient: "Olive oil",
-      quantity: "2",
-      unit: "tablespoons",
-    },
-    {
-      ingredient: "Garlic",
-      quantity: "3",
-      unit: "cloves",
-    },
-    {
-      ingredient: "Fresh thyme",
-      quantity: "1",
-      unit: "tablespoon",
-    },
-    {
-      ingredient: "Fresh rosemary",
-      quantity: "1",
-      unit: "tablespoon",
-    },
-    {
-      ingredient: "Salt",
-      quantity: "1",
-      unit: "teaspoon",
-    },
-    {
-      ingredient: "Black pepper",
-      quantity: "0.5",
-      unit: "teaspoon",
-    },
-  ],
-  instructions: [
-    {
-      description: "Preheat the oven to 200°C (400°F).",
-      ingredientsUsed: [],
-    },
-    {
-      description: "Peel the sweet potatoes and cut them into 1-inch cubes.",
-      ingredientsUsed: [
-        {
-          ingredient: "Sweet potatoes",
-          quantity: "4",
-          unit: "whole",
-        },
-      ],
-    },
-    {
-      description:
-        "In a large mixing bowl, combine the sweet potatoes, olive oil, minced garlic, thyme, rosemary, salt, and black pepper. Toss until the sweet potatoes are evenly coated.",
-      ingredientsUsed: [
-        {
-          ingredient: "Sweet potatoes",
-          quantity: "4",
-          unit: "whole",
-        },
-        {
-          ingredient: "Olive oil",
-          quantity: "2",
-          unit: "tablespoons",
-        },
-        {
-          ingredient: "Garlic",
-          quantity: "3",
-          unit: "cloves",
-        },
-        {
-          ingredient: "Fresh thyme",
-          quantity: "1",
-          unit: "tablespoon",
-        },
-        {
-          ingredient: "Fresh rosemary",
-          quantity: "1",
-          unit: "tablespoon",
-        },
-        {
-          ingredient: "Salt",
-          quantity: "1",
-          unit: "teaspoon",
-        },
-        {
-          ingredient: "Black pepper",
-          quantity: "0.5",
-          unit: "teaspoon",
-        },
-      ],
-    },
-    {
-      description:
-        "Spread the seasoned sweet potatoes evenly on a baking sheet lined with parchment paper.",
-      ingredientsUsed: [],
-    },
-    {
-      description:
-        "Roast in the preheated oven for 30 minutes, flipping the sweet potatoes halfway through, until they are golden brown and tender.",
-      ingredientsUsed: [],
-    },
-    {
-      description: "Remove from the oven and serve warm. Enjoy!",
-      ingredientsUsed: [],
-    },
-  ],
-};
-
 const features = [
   {
     icon: Refrigerator,
@@ -182,7 +54,7 @@ const features = [
 ];
 
 export default function Home() {
-  const [recipe, setRecipe] = useState<RecipeType | null>(null);
+  const [recipe, setRecipe] = useState<RecipeType | undefined>(undefined);
 
   return (
     <>

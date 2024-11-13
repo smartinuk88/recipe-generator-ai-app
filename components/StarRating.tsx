@@ -31,28 +31,31 @@ function StarRating({
 
   return (
     <div className="flex space-x-2 justify-center items-center mb-4">
-      {[1, 2, 3, 4, 5].map((star) => {
-        // Determine whether the star should be filled based on hover, selected, or average rating
-        const isFilled = hoverRating
-          ? hoverRating >= star
-          : selectedRating >= star;
+      <div className="flex space-x-2">
+        {[1, 2, 3, 4, 5].map((star) => {
+          // Determine whether the star should be filled based on hover, selected, or average rating
+          const isFilled = hoverRating
+            ? hoverRating >= star
+            : selectedRating >= star;
 
-        return (
-          <span
-            key={star}
-            onMouseEnter={() => handleMouseEnter(star)}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick(star)}
-            className="cursor-pointer"
-          >
-            <Star
-              className={`text-bluegreen-500 ${
-                isFilled ? "fill-current" : "stroke-current"
-              }`}
-            />
-          </span>
-        );
-      })}
+          return (
+            <span
+              key={star}
+              onMouseEnter={() => handleMouseEnter(star)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleClick(star)}
+              className="cursor-pointer"
+            >
+              <Star
+                className={`text-bluegreen-500 ${
+                  isFilled ? "fill-current" : "stroke-current"
+                }`}
+              />
+            </span>
+          );
+        })}
+      </div>
+      <span>({ratingCount})</span>
     </div>
   );
 }

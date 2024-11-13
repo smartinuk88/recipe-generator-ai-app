@@ -42,9 +42,8 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
       userRatings: updatedUserRatings,
     };
 
-    console.log("UPDATED RECIPE DATA:", updatedRecipeData);
-
     setRecipeData(updatedRecipeData);
+    localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipeData));
 
     try {
       await handleUpdateRecipe(updatedRecipeData);

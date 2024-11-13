@@ -3,7 +3,6 @@ import { db } from "@/firebase";
 import { Recipe } from "@/types/recipe";
 
 export const handleUpdateRecipe = async (recipe: Recipe) => {
-  console.log("RECEIVED RECIPE:", recipe);
   if (!recipe || !recipe.id) {
     throw new Error("Invalid recipe data: Recipe or recipe ID is missing");
   }

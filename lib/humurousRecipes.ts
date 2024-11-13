@@ -2,6 +2,7 @@ import { Recipe } from "@/types/recipe";
 
 export const humorousRecipes: Recipe[] = [
   {
+    id: "humorousRecipe0",
     title: "Recipe for Disaster",
     summary: "A perfectly chaotic meal for when you're feeling adventurous.",
     servings: 1,
@@ -35,6 +36,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe1",
     title: "Invisible Soup",
     summary: "A meal so light, you'll wonder if you ever made it.",
     servings: 4,
@@ -64,6 +66,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe2",
     title: "Mystical Toast",
     summary: "A slice of bread transformed by pure imagination and magic.",
     servings: 1,
@@ -96,6 +99,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe3",
     title: "Salad of Indecision",
     summary:
       "A salad for when you can't make up your mind, featuring an eclectic mix of nothing.",
@@ -137,6 +141,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe4",
     title: "Quantum Cake",
     summary: "A cake that exists in multiple states until observed (or eaten).",
     servings: 1,
@@ -173,6 +178,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe5",
     title: "Eternal Breakfast",
     summary:
       "The breakfast that never ends and keeps you eternally full of joy and confusion.",
@@ -218,6 +224,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe6",
     title: "Invisible Spaghetti",
     summary:
       "A dish so light and transparent, you’ll think you're eating air (and you might be right).",
@@ -252,6 +259,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe7",
     title: "Philosopher’s Stone Soup",
     summary:
       "A soup that turns hunger into wisdom, but only if you understand the meaning of existence.",
@@ -303,6 +311,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe8",
     title: "Epic Fail Pancakes",
     summary:
       "Pancakes that are destined to flop, but they taste like sweet defeat.",
@@ -339,6 +348,7 @@ export const humorousRecipes: Recipe[] = [
     ],
   },
   {
+    id: "humorousRecipe9",
     title: "Whispering Salad",
     summary:
       "A salad so light and quiet, it tells you secrets of the universe if you listen closely.",

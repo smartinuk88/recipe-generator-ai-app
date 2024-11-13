@@ -1,13 +1,58 @@
 "use client";
 
-import { useState } from "react";
 import StarRating from "./StarRating";
 import { Button } from "./ui/button";
 import { Pencil, Printer, Save } from "lucide-react";
 import { Recipe as RecipeType } from "@/types/recipe";
+import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { handleUpdateRecipe } from "@/lib/handleUpdateRecipe";
 
 function Recipe({ recipe }: { recipe: RecipeType }) {
-  const [rating, setRating] = useState(4);
+  const { user } = useUser();
+  const [recipeData, setRecipeData] = useState<RecipeType>(recipe);
+
+  const handleRate = async (selectedRating: number) => {
+    if (!user) return;
+    const previousUserRating = recipeData.userRatings?.[user.id] || 0;
+    const isNewRating = previousUserRating === 0;
+
+    // Set default values if ratingCount or ratingSum are undefined
+    const currentRatingCount = recipeData.ratingCount ?? 0;
+    const currentRatingSum = recipeData.ratingSum ?? 0;
+
+    // Calculate new rating count and sum
+    const newRatingCount = isNewRating
+      ? currentRatingCount + 1
+      : recipeData.ratingCount;
+
+    const newRatingSum = currentRatingSum - previousUserRating + selectedRating;
+
+    // Update user rating in metadata
+    const updatedUserRatings = {
+      ...recipeData.userRatings,
+      [user.id]: selectedRating,
+    };
+
+    // Update recipe data locally
+    const updatedRecipeData = {
+      ...recipeData,
+      ratingCount: newRatingCount,
+      ratingSum: newRatingSum,
+      userRatings: updatedUserRatings,
+    };
+
+    console.log("UPDATED RECIPE DATA:", updatedRecipeData);
+
+    setRecipeData(updatedRecipeData);
+
+    try {
+      await handleUpdateRecipe(updatedRecipeData);
+    } catch (err) {
+      console.error("Error updating recipe", err);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto m-5 rounded-xl border border-mango-600">
       <div className="bg-mango-200 text-center p-5 rounded-t-xl">
@@ -15,7 +60,14 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
           {recipe.title}
         </h2>
         <p className="text-gray-900-400 mb-4">{recipe.summary}</p>
-        <StarRating rating={rating} />
+
+        {recipe.ratingCount !== undefined && recipe.ratingSum !== undefined && (
+          <StarRating
+            ratingCount={recipe.ratingCount}
+            ratingSum={recipe.ratingSum}
+            onRate={handleRate}
+          />
+        )}
 
         {/* Buttons */}
         <div className="flex justify-center items-center space-x-2 mb-4">
@@ -63,7 +115,7 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
         {recipe.createdBy && (
           <p className="text-xs font-light">
             Created by{" "}
-            <span className="text-mango-600">{recipe.createdBy}</span>
+            <span className="text-mango-600">{recipe.createdBy.fullName}</span>
           </p>
         )}
       </div>

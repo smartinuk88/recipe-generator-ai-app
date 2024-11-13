@@ -1,27 +1,30 @@
-import { RecipeWithMetaData } from "@/types/recipe";
+import { Recipe } from "@/types/recipe";
 import { db } from "@/firebase";
 import {
   collection,
-  addDoc,
   updateDoc,
   doc,
   getDoc,
   serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 
-export const saveRecipeToFirestore = async (
-  recipe: RecipeWithMetaData,
-  userId: string
-) => {
+export const saveRecipeToFirestore = async (recipe: Recipe, userId: string) => {
   try {
-    // Set server-generated timestamp for createdAt
-    const recipeWithTimestamp = {
+    // Generate a document reference with an ID but don’t write yet
+    const recipeRef = doc(collection(db, "recipes"));
+
+    // Set id
+    const recipeWithId = {
       ...recipe,
-      createdAt: serverTimestamp(), // Replace placeholder with server timestamp
+      id: recipeRef.id,
     };
 
-    // Add recipe to global recipes collection
-    const recipeRef = await addDoc(collection(db, "recipes"), recipeWithTimestamp);
+    // Set the document with the generated ID included in the data
+    await setDoc(recipeRef, {
+      ...recipeWithId,
+      createdAt: serverTimestamp(),
+    });
 
     // Update user's recipes array to reference new recipe
     const userRef = doc(db, "users", userId);
@@ -34,7 +37,8 @@ export const saveRecipeToFirestore = async (
       recipes: [...existingRecipes, recipeRef.id],
     });
 
-    console.log("Recipe added successfully");
+    console.log("Recipe added successfully:", recipeWithId);
+    return recipeWithId;
   } catch (err) {
     console.error("Error adding recipe", err);
   }

@@ -27,7 +27,11 @@ const isFoodRelated = async (prompt: string) => {
   return completion.choices[0].message.content?.toLowerCase() === "y";
 };
 
-export async function generateRecipe(prompt: string, fullName: string) {
+export async function generateRecipe(
+  prompt: string,
+  userId: string,
+  fullName: string
+) {
   const harmful = await isHarmful(prompt);
   if (harmful) return null;
 
@@ -202,9 +206,14 @@ export async function generateRecipe(prompt: string, fullName: string) {
     const parsedRecipe = JSON.parse(recipe);
     const recipeWithMetaData = {
       ...parsedRecipe,
-      createdBy: fullName,
+      createdBy: {
+        fullName: fullName,
+        userId: userId,
+      },
       createdAt: new Date().toISOString(),
       prompt,
+      ratingCount: 0,
+      ratingSum: 0,
       public: false,
     };
     return recipeWithMetaData;

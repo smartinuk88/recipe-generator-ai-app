@@ -10,6 +10,7 @@ export interface Recipe {
   id: string;
   title: string;
   summary: string;
+  image?: string | null;
   servings: number;
   humorous?: boolean;
   prepTime: {

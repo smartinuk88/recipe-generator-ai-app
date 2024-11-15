@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import RecipeThumbnail from "@/components/RecipeThumbnail";
 
 function MyRecipesPage() {
   const { user, isLoaded } = useUser();
@@ -99,9 +100,9 @@ function MyRecipesPage() {
               </div>
             </>
           ) : (
-            <div className="grid gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {userRecipes?.map((recipe) => (
-                <Recipe key={recipe.id} recipe={recipe} />
+                <RecipeThumbnail key={recipe.id} recipe={recipe} />
               ))}
             </div>
           )}

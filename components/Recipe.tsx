@@ -6,51 +6,11 @@ import { Pencil, Printer, Save } from "lucide-react";
 import { Recipe as RecipeType } from "@/types/recipe";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { handleUpdateRecipe } from "@/lib/handleUpdateRecipe";
+import { handleRateRecipe } from "@/lib/handleRateRecipe";
 
 function Recipe({ recipe }: { recipe: RecipeType }) {
   const { user } = useUser();
   const [recipeData, setRecipeData] = useState<RecipeType>(recipe);
-
-  const handleRate = async (selectedRating: number) => {
-    if (!user) return;
-    const previousUserRating = recipeData.userRatings?.[user.id] || 0;
-    const isNewRating = previousUserRating === 0;
-
-    // Set default values if ratingCount or ratingSum are undefined
-    const currentRatingCount = recipeData.ratingCount ?? 0;
-    const currentRatingSum = recipeData.ratingSum ?? 0;
-
-    // Calculate new rating count and sum
-    const newRatingCount = isNewRating
-      ? currentRatingCount + 1
-      : recipeData.ratingCount;
-
-    const newRatingSum = currentRatingSum - previousUserRating + selectedRating;
-
-    // Update user rating in metadata
-    const updatedUserRatings = {
-      ...recipeData.userRatings,
-      [user.id]: selectedRating,
-    };
-
-    // Update recipe data locally
-    const updatedRecipeData = {
-      ...recipeData,
-      ratingCount: newRatingCount,
-      ratingSum: newRatingSum,
-      userRatings: updatedUserRatings,
-    };
-
-    setRecipeData(updatedRecipeData);
-    localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipeData));
-
-    try {
-      await handleUpdateRecipe(updatedRecipeData);
-    } catch (err) {
-      console.error("Error updating recipe", err);
-    }
-  };
 
   return (
     <div className="max-w-2xl mx-auto m-5 rounded-xl border border-mango-600">
@@ -64,7 +24,9 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
           <StarRating
             ratingCount={recipe.ratingCount}
             ratingSum={recipe.ratingSum}
-            onRate={handleRate}
+            onRate={(rating) =>
+              handleRateRecipe(recipe, rating, setRecipeData, user)
+            }
           />
         )}
 

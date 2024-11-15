@@ -1,14 +1,13 @@
 import { Recipe } from "@/types/recipe";
-import { useUser } from "@clerk/nextjs";
 import { handleUpdateRecipe } from "./handleUpdateRecipe";
+import { UserResource } from "@clerk/types";
 
 export const handleRateRecipe = async (
   recipeData: Recipe,
   selectedRating: number,
-  setRecipeData: (recipe: Recipe) => void
+  setRecipeData: (recipe: Recipe) => void,
+  user: UserResource | null | undefined
 ) => {
-  const { user } = useUser();
-
   if (!user) return;
   const previousUserRating = recipeData.userRatings?.[user.id] || 0;
   const isNewRating = previousUserRating === 0;

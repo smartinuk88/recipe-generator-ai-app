@@ -12,6 +12,10 @@ function RecipeThumbnail({ recipe }: { recipe: Recipe }) {
   const [recipeData, setRecipeData] = useState<Recipe>(recipe);
 
   const { user } = useUser();
+
+  const isUserRecipe = recipe.createdBy?.userId === user?.id;
+
+  // Add bookmarking option if the recipe is NOT the user's recipe
   return (
     <div className="relative h-96 w-96 bg-bluegreen-500 overflow-hidden group">
       <Link href={`/recipes/${recipe.id}`}>

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import RecipeThumbnail from "@/components/RecipeThumbnail";
+import AdUnit from "@/components/AdUnit";
 
 function MyRecipesPage() {
   const { user, isLoaded } = useUser();

@@ -125,7 +125,7 @@ function RecipeGenerator({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-5 md:p-10 bg-bluegreen-500 max-w-7xl mx-auto 2xl:rounded-xl min-h-96 text-white text-center">
+    <div className="flex flex-col items-center justify-center p-5 md:p-10 bg-bluegreen-500 max-w-7xl mb-5 mx-auto 2xl:rounded-xl min-h-96 text-white text-center shadow-md">
       <h2 className="text-5xl font-bold mb-2">Need a quick recipe?</h2>
       <p className="mb-12">Just enter a quick idea and we will do the rest!</p>
       <form onSubmit={handleGenerateRecipe} className="w-full">

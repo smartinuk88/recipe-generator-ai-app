@@ -1,8 +1,11 @@
 "use client";
 
 import AdUnit from "@/components/AdUnit";
+import FullRecipe from "@/components/FullRecipe";
 import Header from "@/components/Header";
+import Recipe from "@/components/Recipe";
 import { db } from "@/firebase";
+import { Recipe as RecipeType } from "@/types/recipe";
 import { doc } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 
@@ -11,7 +14,7 @@ function FullRecipePage({ params }: { params: { id: string } }) {
     doc(db, "recipes", params.id)
   );
 
-  const recipe = recipeSnapshot?.data();
+  const recipe = recipeSnapshot?.data() as RecipeType;
 
   if (recipeLoading) {
     return (
@@ -26,21 +29,15 @@ function FullRecipePage({ params }: { params: { id: string } }) {
     );
   }
 
+  if (!recipe) {
+    return <div>Recipe not found</div>;
+  }
+
   return (
     <>
       <Header />
       <main className="flex-1 mt-20 overflow-scroll bg-floral-500">
-        <AdUnit />
-        <div className="max-w-7xl mx-auto p-5">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Sidebar */}
-            <aside className="lg:col-span-1 p-4 bg-mango-100 rounded-xl">
-              <h2 className="text-2xl font-bold mb-4">Recipe Details</h2>
-              <div className="space-y-4"></div>
-            </aside>
-          </div>
-        </div>
-        <AdUnit />
+        <FullRecipe recipe={recipe} />
       </main>
     </>
   );

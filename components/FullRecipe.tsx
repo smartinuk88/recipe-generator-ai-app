@@ -1,6 +1,8 @@
 import { Recipe as RecipeType } from "@/types/recipe";
 import AdUnit from "./AdUnit";
 import Recipe from "./Recipe";
+import Image from "next/image";
+import RecipePlaceholder from "@/assets/images/recipe-placeholder.webp";
 
 function FullRecipe({ recipe }: { recipe: RecipeType }) {
   return (
@@ -10,8 +12,17 @@ function FullRecipe({ recipe }: { recipe: RecipeType }) {
       <div className="max-w-7xl mx-auto p-5">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Sidebar */}
-          <aside className="md:col-span-1 p-5 bg-mango-100 rounded-xl shadow-md border border-mango-600">
-            <div className="space-y-4">
+          <aside className="md:col-span-1 bg-mango-100 rounded-xl shadow-md border border-mango-600">
+            <div className="aspect-square relative rounded-lg overflow-hidden">
+              <Image
+                src={recipe.image || RecipePlaceholder}
+                alt={recipe.title}
+                fill
+                className="object-cover rounded-t-xl"
+                priority
+              />
+            </div>
+            <div className="p-5 flex flex-col space-y-8 text-center md:text-left text-xl md:text-base">
               <div className="text-center">
                 <p className="font-semibold">"{recipe.prompt}"</p>
               </div>
@@ -38,27 +49,8 @@ function FullRecipe({ recipe }: { recipe: RecipeType }) {
                   </li>
                 </ul>
               </div>
+
               <hr />
-              <div>
-                <ul className="space-y-2">
-                  <li>
-                    <span className="font-semibold">Servings:</span>{" "}
-                    {recipe.servings}
-                  </li>
-                  <li>
-                    <span className="font-semibold">Prep Time:</span>{" "}
-                    {recipe.prepTime.time} {recipe.prepTime.unit}
-                  </li>
-                  <li>
-                    <span className="font-semibold">Cook Time:</span>{" "}
-                    {recipe.cookTime.time} {recipe.cookTime.unit}
-                  </li>
-                  <li>
-                    <span className="font-semibold">Total Time:</span>{" "}
-                    {recipe.totalTime.time} {recipe.totalTime.unit}
-                  </li>
-                </ul>
-              </div>
             </div>
           </aside>
 

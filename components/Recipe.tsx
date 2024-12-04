@@ -7,6 +7,7 @@ import { Recipe as RecipeType } from "@/types/recipe";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { handleRateRecipe } from "@/lib/handleRateRecipe";
+import Image from "next/image";
 
 function Recipe({ recipe }: { recipe: RecipeType }) {
   const { user } = useUser();
@@ -81,7 +82,7 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
         </div>
       </div>
 
-      <div className="py-5 px-10 text-lg">
+      <div className="py-5 px-10 text-lg bg-white rounded-xl">
         <h3 className="font-bold text-mango-600 text-3xl">Equipment</h3>
         <ul className="mb-8">
           {recipe.equipment.map((item) => (
@@ -96,10 +97,13 @@ function Recipe({ recipe }: { recipe: RecipeType }) {
             </li>
           ))}
         </ul>
-        <h3 className="font-bold text-mango-600 text-3xl">Instructions</h3>
-        <ol className="mb-8 list-decimal flex flex-col space-y-2">
+        <h3 className="font-bold text-mango-600 text-3xl mb-2">Instructions</h3>
+        <ol className="mb-8 list-none flex flex-col space-y-8">
           {recipe.instructions.map((instruction, i) => (
-            <li key={i}>
+            <li key={i} className="pl-14 relative">
+              <span className="absolute left-0 top-1 -translate-y-1/4 w-10 h-10 font-semibold text-2xl bg-mango-100 rounded-full flex items-center justify-center">
+                {i + 1}
+              </span>
               <p>{instruction.description}</p>
               <p className="text-gray-500">
                 {instruction.ingredientsUsed

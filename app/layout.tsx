@@ -17,9 +17,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className="min-h-screen h-screen overflow-hidden flex flex-col">
+        <body className="min-h-screen flex flex-col">
           <Toaster />
+          <main className="flex-1">
           {children}
+          </main>
           <Footer />
         </body>
       </html>

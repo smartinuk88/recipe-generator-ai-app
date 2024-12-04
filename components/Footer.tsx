@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <div className="flex p-5 items-center justify-between">
+    <div className="flex p-5 items-center justify-between bg-white">
       <div>
         <Link href="/">
           <span className="text-lg font-semibold">

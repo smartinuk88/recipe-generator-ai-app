@@ -15,7 +15,7 @@ function Header() {
   };
 
   return (
-    <div className="flex fixed w-full z-40 top-0 left-0 h-20 items-center justify-between px-5">
+    <div className="flex fixed w-full z-40 top-0 left-0 h-20 items-center justify-between px-5 bg-white">
       <BurgerMenu menuOpen={menuOpen} onToggleMenu={handleToggleMenu} />
 
       <div>
